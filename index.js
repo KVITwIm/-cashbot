@@ -113,6 +113,8 @@ bot.command("roulete", async (ctx) => {
   let moneyPush = getRandomInt(-750, 750);
   user.balance += moneyPush;
   
+  await user.save();
+  
   if(user == null){
     let newUser = new Users({
       userId: ctx.message.from.id,
