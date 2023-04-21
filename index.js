@@ -68,8 +68,6 @@ bot.command("cash", async (ctx) => {
     ctx.reply(`${bandomPhrase}. Даже ${businessman} не так быстро рубит бабки! Тебе осталось ${Math.round((kdTime - date) / 60000)} минуток.`);
     return;
   }
-
-  //roulete 
   
   let balance = user.balance;
   user.balance = balance + addMoney;
@@ -111,7 +109,7 @@ bot.command("top", async (ctx) => {
 bot.command("roulete", async (ctx) => {
   let user = await Users.findOne({userId: ctx.message.from.id});
   let moneyPush = getRandomInt(-750, 750);
-  user.balance += moneyPush;
+  user.balance = user.balance + moneyPush;
   
   await user.save();
   
@@ -131,6 +129,8 @@ bot.command("roulete", async (ctx) => {
   } else {
     ctx.replyWithHTML(`${mass_win[getRandomInt(0, mass_win.length)]}. Ты выиграл: ${moneyPush} $.\nВаш баланс: ${user.balance} $.`);
   }
+  
+  await user.save();
 }); // ROULETE
 
 bot.command("help", async (ctx) => {
