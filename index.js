@@ -109,9 +109,6 @@ bot.command("top", async (ctx) => {
 bot.command("roulete", async (ctx) => {
   let user = await Users.findOne({userId: ctx.message.from.id});
   let moneyPush = getRandomInt(-750, 750);
-  user.balance = user.balance + moneyPush;
-  
-  await user.save();
   
   if(user == null){
     let newUser = new Users({
@@ -123,6 +120,10 @@ bot.command("roulete", async (ctx) => {
     await user.save();
     return;
   }
+  
+  user.balance = user.balance + moneyPush;
+  
+  await user.save();
 
   if(moneyPush < 0){
     ctx.replyWithHTML(`${mass_lose[getRandomInt(0, mass_lose.length)]}. Ты проиграл: ${moneyPush} $.\nВаш баланс: ${user.balance} $.`);
