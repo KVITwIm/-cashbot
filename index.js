@@ -47,8 +47,7 @@ bot.command("cash", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: addMoney,
-      updater: 1,
-      chatId: ctx.message.chat.id
+      updater: 1
     });
     await newUser.save();
 
@@ -74,7 +73,6 @@ bot.command("cash", async (ctx) => {
   let balance = user.balance;
   user.balance = balance + addMoney;
   user.kdTime = date + 1800000;
-  user.chatId = ctx.message.chat.id;
 
   await user.save();
     
@@ -88,8 +86,7 @@ bot.command("balance", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: 0,
-      updater: 1,
-      chatId: ctx.message.chat.id
+      updater: 1
     });
     await user.save();
     return;
@@ -119,8 +116,7 @@ bot.command("roulete", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: moneyPush,
-      updater: 1,
-      chatId: ctx.message.chat.id
+      updater: 1
     });
     await user.save();
     return;
@@ -152,8 +148,7 @@ bot.command("getmoremoney", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: addMoney,
-      updater: 1,
-      chatId: ctx.message.chat.id
+      updater: 1
     });
     await user.save();
     return;
@@ -163,7 +158,7 @@ bot.command("getmoremoney", async (ctx) => {
 }); // GETMOREMONEY
 
 bot.command("send", async (ctx) => {
-  let user = await Users.findOne();
+  let user = await Users.find();
   let text = ctx.message.text.replace('/send', '').split(' ');
   let chatId = text[1];
   let chatMessage = text[2];
@@ -178,7 +173,7 @@ bot.command("send", async (ctx) => {
 }) // Команда для отправки сообщений от имени бота.
 
 bot.command("chats", async (ctx) => {
-  let user = await Users.findOne();
+  let user = await Users.find();
   if(user.username == "k1vitaly" || user.username == "Vanyochek228"){
     let chats = user.chatId;
     ctx.reply(chats);
