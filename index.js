@@ -169,7 +169,7 @@ bot.command("send", async (ctx) => {
   for(let i = 3; i < text.length; i++){
     chatMessage += ` ${text[i]}`;
   };
-  if(user.username == k1vitaly || user.username == Vanyochek228){
+  if(user.username == "k1vitaly" || user.username == "Vanyochek228"){
     ctx.telegram.sendMessage(chatId, chatMessage);
   } else {
     ctx.reply("Authorization error");
@@ -178,7 +178,7 @@ bot.command("send", async (ctx) => {
 
 bot.command("chats", async (ctx) => {
   let user = await Users.findOne({userId: ctx.message.from.id});
-  if(user.username == k1vitaly || user.username == Vanyochek228){
+  if(user.username == "k1vitaly" || user.username == "Vanyochek228"){
     let chats = user.chatId;
     ctx.reply(chats);
   } else {
