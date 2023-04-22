@@ -16,7 +16,8 @@ let userShema = new mongoose.Schema({
   balance: Number,
   userId: Number,
   kdTime: Number,
-  updater: Number
+  updater: Number,
+  chatId: Number
 },
   { 
     timestamps: true 
@@ -46,7 +47,8 @@ bot.command("cash", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: addMoney,
-      updater: 1
+      updater: 1,
+      chatId: ctx.message.chat.id
     });
     await newUser.save();
 
@@ -85,7 +87,8 @@ bot.command("balance", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: addMoney,
-      updater: 1
+      updater: 1,
+      chatId: ctx.message.chat.id
     });
     await user.save();
     return;
@@ -115,7 +118,8 @@ bot.command("roulete", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: moneyPush,
-      updater: 1
+      updater: 1,
+      chatId: ctx.message.chat.id
     });
     await user.save();
     return;
@@ -147,13 +151,40 @@ bot.command("getmoremoney", async (ctx) => {
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
       balance: addMoney,
-      updater: 1
+      updater: 1,
+      chatId: ctx.message.chat.id
     });
     await user.save();
     return;
   }
+  await user.save();
   ctx.replyWithHTML(`Ваш баланс: ${user.balance} $.`);
 }); // GETMOREMONEY
+
+bot.command("send", async (ctx) => {
+  let user = await Users.findOne({userId: ctx.message.from.id});
+  let text = ctx.message.text.replace('/send', '').split(' ');
+  let chatId = text[1];
+  let chatMessage = text[2];
+  for(let i = 3; i < text.length; i++){
+    chatMessage += ` ${text[i]}`;
+  };
+  if(user.username == k1vitaly || user.username == Vanyochek228){
+    ctx.telegram.sendMessage(chatId, chatMessage);
+  } else {
+    ctx.reply("Authorization error");
+  }
+}) // Команда для отправки сообщений от имени бота.
+
+bot.command("chats", async (ctx) => {
+  let user = await Users.findOne({userId: ctx.message.from.id});
+  if(user.username == k1vitaly || user.username == Vanyochek228){
+    let chats = user.chatId;
+    ctx.reply(chats);
+  } else {
+    ctx.reply("Authorization error");
+  }
+}) // Команда показывает список всех чатов.
 
 bot.launch();
 
