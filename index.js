@@ -114,7 +114,7 @@ bot.command("roulete", async (ctx) => {
     let newUser = new Users({
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
-      balance: addMoney,
+      balance: moneyPush,
       updater: 1
     });
     await user.save();
