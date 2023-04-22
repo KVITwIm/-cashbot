@@ -86,7 +86,7 @@ bot.command("balance", async (ctx) => {
     let newUser = new Users({
       userId: ctx.message.from.id,
       username: ctx.message.from.username,
-      balance: addMoney,
+      balance: 0,
       updater: 1,
       chatId: ctx.message.chat.id
     });
