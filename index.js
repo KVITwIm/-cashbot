@@ -162,7 +162,7 @@ bot.command("getmoremoney", async (ctx) => {
 }); // GETMOREMONEY
 
 bot.command("send", async (ctx) => {
-  let user = await Users.findOne({userId: ctx.message.from.id});
+  let user = await Users.findOne();
   let text = ctx.message.text.replace('/send', '').split(' ');
   let chatId = text[1];
   let chatMessage = text[2];
@@ -177,7 +177,7 @@ bot.command("send", async (ctx) => {
 }) // Команда для отправки сообщений от имени бота.
 
 bot.command("chats", async (ctx) => {
-  let user = await Users.findOne({userId: ctx.message.from.id});
+  let user = await Users.findOne();
   if(user.username == "k1vitaly" || user.username == "Vanyochek228"){
     let chats = user.chatId;
     ctx.reply(chats);
