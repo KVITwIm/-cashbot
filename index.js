@@ -38,7 +38,7 @@ bot.start((ctx) => {
 });
 
 bot.command("cash", async (ctx) => {
-  let addMoney = getRandomInt(100, 1000);
+  let addMoney = getRandomInt(1000, 10000);
   let user = await Users.findOne({userId: ctx.message.from.id});
 
   if(user == null){
