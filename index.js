@@ -74,7 +74,8 @@ bot.command("cash", async (ctx) => {
   let balance = user.balance;
   user.balance = balance + addMoney;
   user.kdTime = date + 1800000;
-    
+  user.chatId = ctx.message.chat.id;
+
   await user.save();
     
   ctx.replyWithHTML(`Вы заработали: ${addMoney} $.\nВаш баланс: ${user.balance} $.`);
