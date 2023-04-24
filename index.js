@@ -1,6 +1,10 @@
 const { Telegraf } = require('telegraf');
 const { message } = require('telegraf/filters');
 
+process.on('unhandledRejection', error => {
+  console.error('Ошибка API', error);
+});
+
 const mongoose = require('mongoose');
 const passwordMongoAtlas = process.env['passwordMongoAtlas']
 
